@@ -1,1 +1,2 @@
 library(TwoSampleMR)
+mr_ivw(file$beta.exposure, file$beta.outcome, file$se.exposure, file$se.outcome)
