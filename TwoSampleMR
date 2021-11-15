@@ -1,8 +1,7 @@
 library(TwoSampleMR)
 
 #For main MR results
-#Will require minimally: SNP (rsID), beta.exposure, beta.outcome, se.exposure, se.outcome, effect_allele.exposure, effect_allele.outcome
-Also: exposure, id.exposure, outcome, id.outcome, and mr_keep (=TRUE)
+#Will require minimally: SNP (rsID), beta.exposure, beta.outcome, se.exposure, se.outcome, effect_allele.exposure, effect_allele.outcome, exposure, id.exposure (source name), outcome, id.outcome, and mr_keep (=TRUE)
 res<-mr(dat)
 res
 
