@@ -5,6 +5,8 @@ library(TwoSampleMR)
 #Read .csv file
 dat<-read.csv("pathway/dat.csv")
 
+#Make sure effect alleles match. Otherwise change sign of beta:
+
 #To see MR methods that can be used
 mr_method_list()
 #Default methods: IVW, MR-Egger, Weighted Median, Simple Mode, Weighted Mode
