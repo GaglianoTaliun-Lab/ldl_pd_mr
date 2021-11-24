@@ -77,6 +77,11 @@ funnel<-mr_funnel_plot(res_single)
 #Leave-one-out
 leaveoneout<-mr_leaveoneout_plot(res_loo)
 
+#To save as pdf:
+pdf("pathway/name.pdf")
+forest<-mr_forest_plot(res_single) -- or other plot function
+dev.off()
+
 
 #Other tests:
 #For heterogeneity (Q) by Inverse variance weighted method and MR-Egger method
