@@ -1,0 +1,69 @@
+library(MendelianRandomization)
+library(metafor)
+par(mfrow=c(2,2)) 
+par(mar=c(4,2,0,2)+.1)
+
+#dat.csv will require minimally beta.exposure, beta.outcome, se.exposure, se.outcome
+#Read .csv file
+dat<-read.csv("pathway/dat.csv")
+
+#If file has effect alleles (effect_allele.outcome and effect_alle.exposure), make sure effect alleles match. Otherwise change sign of beta (from Prof. Sarah's MR code):
+dat$effect_allele.outcome<-as.factor(dat$effect_allele.outcome)
+dat$effect_allele.exposure<-as.factor(dat$effect_allele.exposure)
+lev2 <- unique( c( levels(dat$effect_allele.outcome), levels(dat$effect_allele.exposure) ) )
+dat$effect_allele.outcome <- factor(dat$effect_allele.outcome, levels=lev2)
+dat$effect_allele.exposure <- factor(dat$effect_allele.exposure, levels=lev2)
+dat$effect_allele.exposure<-gsub(" ", "",dat$effect_allele.exposure, fixed = TRUE)
+dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome]<-dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome] * -1
+
+
+#Individual analysis. Various variables including models can be modified. Consult guidebook/package for more details
+
+#IVW (default model: fixed if 3 snps or less, random if otherwise)
+mr_ivw(MRInputObject)
+#Changing model, ex:
+mr_ivw(MRInputObject, model="fixed")
+
+#Egger (model always random)
+mr_egger(MRInputObject)
+
+#Median (default weighted; can also choose "penalized" or "simple")
+mr_median(MRInputObject)
+#To change whether weighted or not, ex:
+mr_median(MRInputObject, weighting = "simple")
+
+#Leave one out analysis (uses ivw)
+mr_loo(MRInputObject)
+
+
+#Plots
+
+#Forest (default method is ivw)
+mr_forest(MRInputObject)
+#To change method, ex:
+mr_forest(MRInputObject, methods="egger")
+
+#Funnel (vertical dashed line at ivw estiamte)
+mr_funnel(MRInputObject)
+
+#Scatter plot. Options for lines are ivw or mr_egger. 
+#By default: ivw shown and directed to web interactive version:
+mr_plot(MRInputObject)
+
+#To change to egger, use line = "egger"
+mr_plot(MRInputObject, line= "egger")
+#To not go to web interactive version:
+mr_plot(MRInputObject, interactive=FALSE)
+
+#To generate pdf
+pdf("pathway/name.pdf")
+plot_command, ex: mr_funnel(MRInputObject
+dev.off()
+
+
+#Sources:
+# https://rdrr.io/cran/MendelianRandomization/api/
+# Guidebook: https://cran.r-project.org/web/packages/MendelianRandomization/MendelianRandomization.pdf
+
+
+
