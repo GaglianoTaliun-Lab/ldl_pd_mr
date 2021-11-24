@@ -5,26 +5,88 @@ library(TwoSampleMR)
 #Read .csv file
 dat<-read.csv("pathway/dat.csv")
 
-#For main MR results
+#To see MR methods that can be used
+mr_method_list()
+#Default methods: IVW, MR-Egger, Weighted Median, Simple Mode, Weighted Mode
+
+#To view default parameters (parameters used unless otherwise specified)
+default_parameters()
+
+
+#Summary MR results
 res<-mr(dat)
 res
+#To precise method list used
+res<-mr(dat, method_list=c("x", "y"))
+#Ex: 
+res<-mr(dat, method_list=c("mr_uwr", "mr_ivw_radial")
+res
+
 
 #By individual analysis
+#General format: take xmethod from mr_method_list
+res<-xmethod(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
+
+#Examples
 #Inverse variance weighted
 mr_ivw(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 
 #MR-Egger
-mr_egger_regression(LipidsPD$beta.exposure, LipidsPD$beta.outcome, LipidsPD$se.exposure, LipidsPD$se.outcome)
+mr_egger_regression(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 
 #Weighted median
-mr_weighted_median(LipidsPD$beta.exposure, LipidsPD$beta.outcome, LipidsPD$se.exposure, LipidsPD$se.outcome)
+mr_weighted_median(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 
 #Weighted mode
-mr_weighted_mode(LipidsPD$beta.exposure, LipidsPD$beta.outcome, LipidsPD$se.exposure, LipidsPD$se.outcome)
+mr_weighted_mode(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 
+
+#Analysis by single SNPs 
+#Default methods: single_method = "mr_wald_ratio", all_method = c("mr_ivw", "mr_egger_regression")
+res_single<-mr_singlesnp(dat)
+#To precise method
+res_single<-mr_singlesnp(dat, single_method = "x", all_method = c("x"))
+
+#Leave-one-out Analysis 
+#Default method: method = mr_ivw
+res_loo<-mr_leaveoneout(dat)
+#To specify method
+res_loo<-mr_leaveoneout(dat, method=x)
+
+
+#Plots
+#Scatter plot (lines with methods used in res)
+scatter<-mr_scatter_plot(res, dat)
+
+#Forest
+forest<-mr_forest_plot(res_single)
+
+#Funnel plot
+funnel<-mr_funnel_plot(res_single)
+
+#Leave-one-out
+leaveoneout<-mr_leaveoneout_plot(res_loo)
+
+
+#Other tests:
 #For heterogeneity (Q) by Inverse variance weighted method and MR-Egger method
 mr_heterogeneity(dat)
+
+#Testing for horizontal pleiotropy using MR-Egger
+mr_pleiotropy_test(dat)
 
 #Testing for horizontal pleiotropy using MR-PResso
 library(MRPRESSO)
 mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = dat)
+
+
+
+#Using datasets from MR-Base
+library(TwoSampleMR)
+ao <- available_outcomes()
+exposure_dat <- extract_instruments(c('ieu-id1'))
+exposure_dat <- clump_data(exposure_dat)
+outcome_dat <- extract_outcome_data(exposure_dat$SNP, c('ieu-id2'), proxies = 1, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3)
+dat <- harmonise_data(exposure_dat, outcome_dat, action = 2)
+mr_results <- mr(dat)
+
