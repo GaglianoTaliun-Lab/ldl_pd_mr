@@ -91,7 +91,7 @@ mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="s
 
 
 
-#Using datasets from MR-Base
+#Using GWAS datasets from MR-Base (https://gwas.mrcieu.ac.uk/)
 library(TwoSampleMR)
 ao <- available_outcomes()
 exposure_dat <- extract_instruments(c('ieu-id1'))
@@ -99,4 +99,10 @@ exposure_dat <- clump_data(exposure_dat)
 outcome_dat <- extract_outcome_data(exposure_dat$SNP, c('ieu-id2'), proxies = 1, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3)
 dat <- harmonise_data(exposure_dat, outcome_dat, action = 2)
 mr_results <- mr(dat)
+
+#Sources:
+#TwoSampleMR: https://rdrr.io/github/MRCIEU/TwoSampleMR/api/
+#User-friendly guide to TwoSampleMR: https://mrcieu.github.io/TwoSampleMR/articles/perform_mr.html 
+#MR-Base GWAS: https://gwas.mrcieu.ac.uk/
+#MR-Presso: https://rdrr.io/github/rondolab/MR-PRESSO/man/
 
