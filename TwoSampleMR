@@ -1,10 +1,30 @@
 library(TwoSampleMR)
 
+#dat.csv will require minimally SNP (rsID), beta.exposure, beta.outcome, se.exposure, se.outcome, effect_allele.exposure, effect_allele.outcome, exposure, id.exposure (source name), outcome, id.outcome, and mr_keep (=TRUE)
+
+#Read .csv file
+dat<-read.csv("pathway/dat.csv")
+
 #For main MR results
-#Will require minimally: SNP (rsID), beta.exposure, beta.outcome, se.exposure, se.outcome, effect_allele.exposure, effect_allele.outcome, exposure, id.exposure (source name), outcome, id.outcome, and mr_keep (=TRUE)
 res<-mr(dat)
 res
 
-
 #By individual analysis
+#Inverse variance weighted
 mr_ivw(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
+
+#MR-Egger
+mr_egger_regression(LipidsPD$beta.exposure, LipidsPD$beta.outcome, LipidsPD$se.exposure, LipidsPD$se.outcome)
+
+#Weighted median
+mr_weighted_median(LipidsPD$beta.exposure, LipidsPD$beta.outcome, LipidsPD$se.exposure, LipidsPD$se.outcome)
+
+#Weighted mode
+mr_weighted_mode(LipidsPD$beta.exposure, LipidsPD$beta.outcome, LipidsPD$se.exposure, LipidsPD$se.outcome)
+
+#For heterogeneity (Q) by Inverse variance weighted method and MR-Egger method
+mr_heterogeneity(dat)
+
+#Testing for horizontal pleiotropy using MR-PResso
+library(MRPRESSO)
+mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = dat)
