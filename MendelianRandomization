@@ -6,6 +6,8 @@ par(mar=c(4,2,0,2)+.1)
 #dat.csv will require minimally beta.exposure, beta.outcome, se.exposure, se.outcome
 #Read .csv file
 dat<-read.csv("pathway/dat.csv")
+#Example file:
+LDLPD<-read.csv("pathway/LDLPD.csv")
 
 #If file has effect alleles (effect_allele.outcome and effect_alle.exposure), make sure effect alleles match. Otherwise change sign of beta (from Prof. Sarah's MR code):
 dat$effect_allele.outcome<-as.factor(dat$effect_allele.outcome)
@@ -15,22 +17,82 @@ dat$effect_allele.outcome <- factor(dat$effect_allele.outcome, levels=lev2)
 dat$effect_allele.exposure <- factor(dat$effect_allele.exposure, levels=lev2)
 dat$effect_allele.exposure<-gsub(" ", "",dat$effect_allele.exposure, fixed = TRUE)
 dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome]<-dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome] * -1
-
+#Note: example file already corrected 
 
 #Individual analysis. Various variables including models can be modified. Consult guidebook/package for more details
+
+#First set MRInputObject:
+MRInputObject <- mr_input(dat$beta.exposure, dat$se.exposure, dat$beta.outcome, dat$se.outcome)
+#Example file:
+MRInputObject <- mr_input(LDLPD$beta.exposure, LDLPD$se.exposure, LDLPD$beta.outcome, LDLPD$se.outcome)
 
 #IVW (default model: fixed if 3 snps or less, random if otherwise)
 mr_ivw(MRInputObject)
 #Changing model, ex:
 mr_ivw(MRInputObject, model="fixed")
+#Example file (random-effects model):
+mr_ivw(MRInputObject)
+Inverse-variance weighted method
+(variants uncorrelated, random-effect model)
+
+Number of Variants : 6 
+
+------------------------------------------------------------------
+ Method Estimate Std Error  95% CI       p-value
+    IVW    0.012     0.262 -0.503, 0.526   0.965
+------------------------------------------------------------------
+Residual standard error =  1.253 
+Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
+
+#Example file (fixed-effects model):
+mr_ivw(MRInputObject, model="fixed")
+Inverse-variance weighted method
+(variants uncorrelated, fixed-effect model)
+
+Number of Variants : 6 
+
+------------------------------------------------------------------
+ Method Estimate Std Error  95% CI       p-value
+    IVW    0.012     0.209 -0.399, 0.422   0.956
+------------------------------------------------------------------
+Residual standard error =  1.253 
+Residual standard error is set to 1 in calculation of confidence interval by fixed-effect assumption.
+Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
+
 
 #Egger (model always random)
 mr_egger(MRInputObject)
+#Example file:
+mr_egger(MRInputObject)
+MR-Egger method
+(variants uncorrelated, random-effect model)
+
+Number of Variants =  6 
+
+------------------------------------------------------------------
+      Method Estimate Std Error  95% CI        p-value
+    MR-Egger   -1.500     0.619 -2.714, -0.287   0.015
+ (intercept)    0.090     0.035  0.022,  0.158   0.009
+------------------------------------------------------------------
+Residual Standard Error :  0.529 
+Residual standard error is set to 1 in calculation of confidence interval when its estimate is less than 1.
+Heterogeneity test statistic = 1.1189 on 4 degrees of freedom, (p-value = 0.8913)
+I^2_GX statistic: 94.9%
+
 
 #Median (default weighted; can also choose "penalized" or "simple")
 mr_median(MRInputObject)
 #To change whether weighted or not, ex:
 mr_median(MRInputObject, weighting = "simple")
+#Example file:
+mr_median(MRInputObject)
+Weighted median method 
+
+Number of Variants : 6 
+------------------------------------------------------------------
+                 Method Estimate Std Error  95% CI       p-value
+ Weighted median method    0.102     0.294 -0.474, 0.679   0.727
+
 
 #Leave one out analysis (uses ivw)
 mr_loo(MRInputObject)
