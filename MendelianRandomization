@@ -116,10 +116,12 @@ mr_plot(MRInputObject)
 mr_plot(MRInputObject, line= "egger")
 #To not go to web interactive version:
 mr_plot(MRInputObject, interactive=FALSE)
+#To combine:
+mr_plot(MRInputObject, line="egger", interactive=FALSE)
 
 #To generate pdf
 pdf("pathway/name.pdf")
-plot_command, ex: mr_funnel(MRInputObject
+plot_command, ex: mr_funnel(MRInputObject)
 dev.off()
 
 
