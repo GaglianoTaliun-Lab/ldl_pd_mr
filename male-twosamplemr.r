@@ -188,3 +188,25 @@ mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="s
 outcome_dat<-read_outcome_data("LDLPD-male.csv", beta_col="beta.outcome", se_col="se.outcome", effect_allele_col="effect_allele.outcome", other_allele_col="other_allele.outcome", eaf_col="eaf.outcome", pval_col="pval.outcome", sep=",")
 exposure_dat<-read_exposure_data("LDLPD-male.csv", beta_col="beta.exposure", se_col="se.exposure", effect_allele_col="effect_allele.exposure", other_allele_col="other_allele.exposure", eaf_col="eaf.outcome", pval_col="pval.exposure", sep=",")
 harmon<-harmonise_data(exposure_dat, outcome_dat, action = 2)
+harmon$samplesize.exposure<-158932
+harmon$ncase.outcome<-12054
+harmon$ncontrol.outcome<-19336
+harmon$prevalence.outcome<-0.01 #1% prevalence
+#add_rsq(harmon)
+
+harmon$r.outcome<-get_r_from_lor(
+  harmon$beta.outcome,
+  harmon$eaf.outcome,
+  harmon$ncase.outcome,
+  harmon$ncontrol.outcome,
+  harmon$prevalence.outcome,
+  model = "logit",
+  correction = FALSE
+)
+directionality_test(harmon)
+#r.exposure and/or r.outcome not present.
+#Calculating approximate SNP-exposure and/or SNP-outcome correlations, assuming all are quantitative traits. Please pre-calculate r.exposure and/or r.outcome using get_r_from_lor() for any binary traits
+#  id.exposure id.outcome exposure outcome snp_r2.exposure snp_r2.outcome
+#1      7q9a19     aiSuQK exposure outcome     0.005416424   0.0002861279
+#  correct_causal_direction steiger_pval
+#1                     TRUE           NA
