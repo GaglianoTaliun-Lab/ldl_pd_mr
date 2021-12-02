@@ -157,4 +157,34 @@ pdf("leaveoneout-male.pdf")
 mr_leaveoneout_plot(res_loo)
 dev.off()
 
+#Testing for horizontal pleiotropy using MR-Egger
+mr_pleiotropy_test(dat)
+#  id.exposure   id.outcome outcome exposure egger_intercept         se
+#1         UKB Blauwendraat      PD    LDL-C      0.01283231 0.03423931
+#       pval
+#1 0.7268459
 
+#Testing for horizontal pleiotropy using MR-PResso
+library(MRPRESSO)
+mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = dat)
+
+#$`Main MR results`
+#       Exposure       MR Analysis Causal Estimate        Sd     T-stat
+#1 beta.exposure               Raw     -0.07285402 0.2628024 -0.2772198
+#2 beta.exposure Outlier-corrected              NA        NA         NA
+#    P-value
+#1 0.7927074
+#2        NA
+#
+#$`MR-PRESSO results`
+#$`MR-PRESSO results`$`Global Test`
+#$`MR-PRESSO results`$`Global Test`$RSSobs
+#[1] 12.68694
+#
+#$`MR-PRESSO results`$`Global Test`$Pvalue
+#[1] 0.221
+
+#directionality test
+outcome_dat<-read_outcome_data("LDLPD-male.csv", beta_col="beta.outcome", se_col="se.outcome", effect_allele_col="effect_allele.outcome", other_allele_col="other_allele.outcome", eaf_col="eaf.outcome", pval_col="pval.outcome", sep=",")
+exposure_dat<-read_exposure_data("LDLPD-male.csv", beta_col="beta.exposure", se_col="se.exposure", effect_allele_col="effect_allele.exposure", other_allele_col="other_allele.exposure", eaf_col="eaf.outcome", pval_col="pval.exposure", sep=",")
+harmon<-harmonise_data(exposure_dat, outcome_dat, action = 2)
