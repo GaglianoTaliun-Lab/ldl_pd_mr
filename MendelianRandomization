@@ -32,52 +32,68 @@ mr_ivw(MRInputObject)
 mr_ivw(MRInputObject, model="fixed")
 #Example file (random-effects model):
 mr_ivw(MRInputObject)
-Inverse-variance weighted method
-(variants uncorrelated, random-effect model)
+#Inverse-variance weighted method
+#(variants uncorrelated, random-effect model)
 
-Number of Variants : 6 
+#Number of Variants : 6 
 
-------------------------------------------------------------------
- Method Estimate Std Error  95% CI       p-value
-    IVW    0.012     0.262 -0.503, 0.526   0.965
-------------------------------------------------------------------
-Residual standard error =  1.253 
-Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
+#------------------------------------------------------------------
+# Method Estimate Std Error  95% CI       p-value
+#    IVW    0.012     0.262 -0.503, 0.526   0.965
+#------------------------------------------------------------------
+#Residual standard error =  1.253 
+#Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
 
 #Example file (fixed-effects model):
 mr_ivw(MRInputObject, model="fixed")
-Inverse-variance weighted method
-(variants uncorrelated, fixed-effect model)
+#Inverse-variance weighted method
+#(variants uncorrelated, fixed-effect model)
 
-Number of Variants : 6 
+#Number of Variants : 6 
 
-------------------------------------------------------------------
- Method Estimate Std Error  95% CI       p-value
-    IVW    0.012     0.209 -0.399, 0.422   0.956
-------------------------------------------------------------------
-Residual standard error =  1.253 
-Residual standard error is set to 1 in calculation of confidence interval by fixed-effect assumption.
-Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
+#------------------------------------------------------------------
+# Method Estimate Std Error  95% CI       p-value
+#    IVW    0.012     0.209 -0.399, 0.422   0.956
+#------------------------------------------------------------------
+#Residual standard error =  1.253 
+#Residual standard error is set to 1 in calculation of confidence interval by fixed-effect assumption.
+#Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
 
 
 #Egger (model always random)
 mr_egger(MRInputObject)
 #Example file:
 mr_egger(MRInputObject)
-MR-Egger method
-(variants uncorrelated, random-effect model)
+#MR-Egger method
+#(variants uncorrelated, random-effect model)
 
-Number of Variants =  6 
+#Number of Variants =  6 
 
-------------------------------------------------------------------
-      Method Estimate Std Error  95% CI        p-value
-    MR-Egger   -1.500     0.619 -2.714, -0.287   0.015
- (intercept)    0.090     0.035  0.022,  0.158   0.009
-------------------------------------------------------------------
-Residual Standard Error :  0.529 
-Residual standard error is set to 1 in calculation of confidence interval when its estimate is less than 1.
-Heterogeneity test statistic = 1.1189 on 4 degrees of freedom, (p-value = 0.8913)
-I^2_GX statistic: 94.9%
+#------------------------------------------------------------------
+#      Method Estimate Std Error  95% CI        p-value
+#    MR-Egger   -1.500     0.619 -2.714, -0.287   0.015
+# (intercept)    0.090     0.035  0.022,  0.158   0.009
+#------------------------------------------------------------------
+#Residual Standard Error :  0.529 
+#Residual standard error is set to 1 in calculation of confidence interval when its estimate is less than 1.
+#Heterogeneity test statistic = 1.1189 on 4 degrees of freedom, (p-value = 0.8913)
+#I^2_GX statistic: 94.9%
+
+###results for LDLPD-male.csv:
+#MR-Egger method
+#(variants uncorrelated, random-effect model)
+#
+#Number of Variants =  6 
+#
+#------------------------------------------------------------------
+#      Method Estimate Std Error  95% CI       p-value
+#    MR-Egger   -0.297     0.665 -1.601, 1.006   0.655
+# (intercept)    0.013     0.034 -0.054, 0.080   0.708
+#------------------------------------------------------------------
+#Residual Standard Error :  1.422 
+#Heterogeneity test statistic = 8.0937 on 4 degrees of freedom, (p-value = 0.0882)
+#I^2_GX statistic: 95.8%
+
 
 
 #Median (default weighted; can also choose "penalized" or "simple")
@@ -88,10 +104,10 @@ mr_median(MRInputObject, weighting = "simple")
 mr_median(MRInputObject)
 Weighted median method 
 
-Number of Variants : 6 
-------------------------------------------------------------------
-                 Method Estimate Std Error  95% CI       p-value
- Weighted median method    0.102     0.294 -0.474, 0.679   0.727
+#Number of Variants : 6 
+#------------------------------------------------------------------
+#                 Method Estimate Std Error  95% CI       p-value
+# Weighted median method    0.102     0.294 -0.474, 0.679   0.727
 
 
 #Leave one out analysis (uses ivw)
@@ -121,7 +137,7 @@ mr_plot(MRInputObject, line="egger", interactive=FALSE)
 
 #To generate pdf
 pdf("pathway/name.pdf")
-plot_command, ex: mr_funnel(MRInputObject)
+mr_funnel(MRInputObject) #insert plot command here, this is an example
 dev.off()
 
 
