@@ -2,8 +2,6 @@ library(TwoSampleMR)
 
 dat<-read.csv("LDLPD-male.csv")
 
-LDLPD<-dat
-
 #Make sure effect alleles match. Otherwise change sign of beta for exposure
 dat$effect_allele.outcome<-as.factor(dat$effect_allele.outcome)
 dat$effect_allele.exposure<-as.factor(dat$effect_allele.exposure)
