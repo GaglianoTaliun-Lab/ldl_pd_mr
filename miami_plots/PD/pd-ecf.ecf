@@ -1,0 +1,42 @@
+#################################################################################################################
+#################################################################################################################
+
+DEFINE		--acolIn ID;Allele1;Effect;StdErr;P;CHR;BP
+		--acolInClasses character;character;numeric;numeric;numeric;numeric;numeric
+
+EASYIN	--fileIn FEMALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt
+		--fileInShortName PD_female 
+		--fileInTag WOMEN
+
+EASYIN	--fileIn MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt
+		--fileInShortName PD_male 
+		--fileInTag MEN
+
+
+#####################################################################################################################################################
+#####################################################################################################################################################
+## EASYSTRATA Scripting interface:
+START EASYX
+
+
+MERGEEASYIN --colInMarker ID --blnMergeAll 0
+
+RENAMECOL --colInRename CHR.WOMEN --colOutRename CHR
+RENAMECOL --colInRename BP.WOMEN --colOutRename BP
+
+		
+MIAMIPLOT 
+		--colMIAMIPlotUp P.WOMEN
+		--colMIAMIPlotDown P.MEN
+		--colInChr CHR
+		--colInPos BP
+		--astrDefaultColourChrUp gray;red
+		--astrDefaultColourChrDown gray;blue
+		--numPvalOffset 0.05
+
+
+		
+STOP EASYX
+
+#################################################################################################################
+#################################################################################################################
