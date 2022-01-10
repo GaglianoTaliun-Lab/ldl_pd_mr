@@ -1,0 +1,42 @@
+#################################################################################################################
+#################################################################################################################
+
+DEFINE		--acolIn variant;ALT;beta;se;pval;CHR;BP
+		--acolInClasses character;character;numeric;numeric;numeric;numeric;numeric
+
+EASYIN	--fileIn 30780_irnt.gwas.imputed_v3.female.varorder.txt
+		--fileInShortName LDL_female 
+		--fileInTag WOMEN
+
+EASYIN	--fileIn 30780_irnt.gwas.imputed_v3.male.varorder.txt
+		--fileInShortName LDL_male
+		--fileInTag MEN
+
+
+#####################################################################################################################################################
+#####################################################################################################################################################
+## EASYSTRATA Scripting interface:
+START EASYX
+
+
+MERGEEASYIN --colInMarker variant --blnMergeAll 0
+
+RENAMECOL --colInRename CHR.WOMEN --colOutRename CHR
+RENAMECOL --colInRename BP.WOMEN --colOutRename BP
+
+		
+MIAMIPLOT 
+		--colMIAMIPlotUp pval.WOMEN
+		--colMIAMIPlotDown pval.MEN
+		--colInChr CHR
+		--colInPos BP
+		--astrDefaultColourChrUp gray;red
+		--astrDefaultColourChrDown gray;blue
+		--numPvalOffset 0.05
+
+
+		
+STOP EASYX
+
+#################################################################################################################
+#################################################################################################################
