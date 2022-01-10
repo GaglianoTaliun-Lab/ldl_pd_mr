@@ -3,7 +3,7 @@
 #SBATCH --account=def-gsarah
 #SBATCH --mem=500G
 #SBATCH --cpus-per-task=1
-#SBATCH --output=slurm.log
+#SBATCH --output=slurm_manhattan.log
 
 module load r/4.0.5
 Rscript run_manhattan.r
