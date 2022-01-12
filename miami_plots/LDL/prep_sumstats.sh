@@ -12,7 +12,9 @@ sed -i 's/variant/CHR:BP:REF:ALT/' female-col1
 perl -p -i -e 's/:/\t/g' female-col1
 
 #merge 4 new columns to original sumstats file
-paste female-col1 30780_irnt.gwas.imputed_v3.female.varorder.tsv > 30780_irnt.gwas.imputed_v3.female.varorder.txt
+#remove NaN columns
+#remove chrX
+paste female-col1 30780_irnt.gwas.imputed_v3.female.varorder.tsv | grep -v NaN | awk '$1!=X'> 30780_irnt.gwas.imputed_v3.female.varorder.txt
 
 #clean up
 rm female-col1 30780_irnt.gwas.imputed_v3.female.varorder.tsv  
