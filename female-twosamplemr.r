@@ -7,7 +7,7 @@ dat<-read.csv("pathway/dat.csv")
 #To verify file/print:
 dat
 #Example file: 
-LDLPD<-read.csv("pathway/LDLPD.csv")
+LDLPD<-read.csv("pathway/female-LDLPD.csv")
 LDLPD
 # X        SNP chrpos.exposure effect_allele.exposure other_allele.exposure beta.exposure se.exposure pval.exposure
 #1 1 rs10062361      5:74565153                      T                     C      0.066717   0.0039256    9.9721e-65
@@ -32,7 +32,7 @@ LDLPD
 #6 0.3899393  rs4341893         UKB    LDL-C Blauwendraat      PD    TRUE
 
 
-#Make sure effect alleles match. Otherwise change sign of beta (from Prof. Sarah's MR code):
+#Make sure effect alleles match. Otherwise change sign of beta:
 dat$effect_allele.outcome<-as.factor(dat$effect_allele.outcome)
 dat$effect_allele.exposure<-as.factor(dat$effect_allele.exposure)
 lev2 <- unique( c( levels(dat$effect_allele.outcome), levels(dat$effect_allele.exposure) ) )
@@ -40,7 +40,6 @@ dat$effect_allele.outcome <- factor(dat$effect_allele.outcome, levels=lev2)
 dat$effect_allele.exposure <- factor(dat$effect_allele.exposure, levels=lev2)
 dat$effect_allele.exposure<-gsub(" ", "",dat$effect_allele.exposure, fixed = TRUE)
 dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome]<-dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome] * -1
-#Example file: step already done
 
 
 #To see MR methods that can be used:
