@@ -7,7 +7,7 @@ dat<-read.csv("pathway/dat.csv")
 #To verify file/print:
 dat
 #Example file: 
-LDLPD<-read.csv("pathway/female-LDLPD.csv")
+LDLPD<-read.csv("pathway/LDLPD-female.csv")
 LDLPD
 # X        SNP chrpos.exposure effect_allele.exposure other_allele.exposure beta.exposure se.exposure pval.exposure
 #1 1 rs10062361      5:74565153                      T                     C      0.066717   0.0039256    9.9721e-65
