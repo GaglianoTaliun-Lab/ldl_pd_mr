@@ -9,27 +9,27 @@ dat
 #Example file: 
 LDLPD<-read.csv("pathway/LDLPD-female.csv")
 LDLPD
-# X        SNP chrpos.exposure effect_allele.exposure other_allele.exposure beta.exposure se.exposure pval.exposure
-#1 1 rs10062361      5:74565153                      T                     C      0.066717   0.0039256    9.9721e-65
-#2 2 rs11206510      1:55496039                      C                     T      0.050126   0.0041043    2.7332e-34
-#3 3 rs12714264      2:21265518                      T                     A      0.096566   0.0048150    2.2744e-89
-#4 4  rs2073547      7:44582331                      G                     A     -0.040959   0.0041382    4.3086e-23
-#5 5  rs2495477      1:55518467                      G                     A      0.037018   0.0033441    1.7960e-28
-#6 6  rs4341893      2:21135577                      G                     A      0.040996   0.0033505    2.0670e-34
-#  chrpos.outcome effect_allele.outcome other_allele.outcome eaf.outcome beta.outcome pval.outcome se.outcome        Wald
-#1     5:74565153                     T                    C      0.2222       0.0061      0.82800     0.0282  0.09143097
-#2     1:55496039                     T                    C      0.8088       0.0090      0.75630     0.0292  0.17954754
-#3     2:21265518                     A                    T      0.8601      -0.0658      0.05318     0.0340 -0.68139925
-#4     7:44582331                     A                    G      0.7227      -0.0467      0.13150     0.0310  1.14016455
-#5     1:55518467                     A                    G      0.6069       0.0196      0.46950     0.0270  0.52947215
-#6     2:21135577                     A                    G      0.3247       0.0277      0.27850     0.0256  0.67567568
-#    Waldvar        lab id.exposure exposure   id.outcome outcome mr_keep
-#1 0.1786591 rs10062361         UKB    LDL-C Blauwendraat      PD    TRUE
-#2 0.3393436 rs11206510         UKB    LDL-C Blauwendraat      PD    TRUE
-#3 0.1239679 rs12714264         UKB    LDL-C Blauwendraat      PD    TRUE
-#4 0.5728286  rs2073547         UKB    LDL-C Blauwendraat      PD    TRUE
-#5 0.5319877  rs2495477         UKB    LDL-C Blauwendraat      PD    TRUE
-#6 0.3899393  rs4341893         UKB    LDL-C Blauwendraat      PD    TRUE
+  X        SNP chrpos.exposure effect_allele.exposure other_allele.exposure beta.exposure se.exposure pval.exposure
+1 1 rs10062361      5:74565153                      T                     C      0.066717   0.0039256      9.97e-65
+2 2 rs11206510      1:55496039                      C                     T     -0.050126   0.0041043      2.73e-34
+3 3 rs12714264      2:21265518                      T                     A     -0.096566   0.0048150      2.27e-89
+4 4  rs2073547      7:44582331                      G                     A      0.040959   0.0041382      4.31e-23
+5 5  rs2495477      1:55518467                      G                     A     -0.037018   0.0033441      1.80e-28
+6 6  rs4341893      2:21135577                      G                     A     -0.040996   0.0033505      2.07e-34
+  chrpos.outcome effect_allele.outcome other_allele.outcome eaf.outcome beta.outcome pval.outcome se.outcome        Wald
+1     5:74565153                     T                    C      0.2222       0.0061      0.82800     0.0282  0.09143097
+2     1:55496039                     T                    C      0.8088       0.0090      0.75630     0.0292  0.17954754
+3     2:21265518                     A                    T      0.8601      -0.0658      0.05318     0.0340 -0.68139925
+4     7:44582331                     A                    G      0.7227      -0.0467      0.13150     0.0310  1.14016455
+5     1:55518467                     A                    G      0.6069       0.0196      0.46950     0.0270  0.52947215
+6     2:21135577                     A                    G      0.3247       0.0277      0.27850     0.0256  0.67567568
+    Waldvar        lab id.exposure exposure   id.outcome outcome mr_keep
+1 0.1786591 rs10062361         UKB    LDL-C Blauwendraat      PD    TRUE
+2 0.3393436 rs11206510         UKB    LDL-C Blauwendraat      PD    TRUE
+3 0.1239679 rs12714264         UKB    LDL-C Blauwendraat      PD    TRUE
+4 0.5728286  rs2073547         UKB    LDL-C Blauwendraat      PD    TRUE
+5 0.5319877  rs2495477         UKB    LDL-C Blauwendraat      PD    TRUE
+6 0.3899393  rs4341893         UKB    LDL-C Blauwendraat      PD    TRUE
 
 
 #Make sure effect alleles match. Otherwise change sign of beta:
@@ -40,6 +40,28 @@ dat$effect_allele.outcome <- factor(dat$effect_allele.outcome, levels=lev2)
 dat$effect_allele.exposure <- factor(dat$effect_allele.exposure, levels=lev2)
 dat$effect_allele.exposure<-gsub(" ", "",dat$effect_allele.exposure, fixed = TRUE)
 dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome]<-dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome] * -1
+#Result for example file:
+  X        SNP chrpos.exposure effect_allele.exposure other_allele.exposure beta.exposure se.exposure pval.exposure
+1 1 rs10062361      5:74565153                      T                     C      0.066717   0.0039256      9.97e-65
+2 2 rs11206510      1:55496039                      C                     T      0.050126   0.0041043      2.73e-34
+3 3 rs12714264      2:21265518                      T                     A      0.096566   0.0048150      2.27e-89
+4 4  rs2073547      7:44582331                      G                     A     -0.040959   0.0041382      4.31e-23
+5 5  rs2495477      1:55518467                      G                     A      0.037018   0.0033441      1.80e-28
+6 6  rs4341893      2:21135577                      G                     A      0.040996   0.0033505      2.07e-34
+  chrpos.outcome effect_allele.outcome other_allele.outcome eaf.outcome beta.outcome pval.outcome se.outcome        Wald
+1     5:74565153                     T                    C      0.2222       0.0061      0.82800     0.0282  0.09143097
+2     1:55496039                     T                    C      0.8088       0.0090      0.75630     0.0292  0.17954754
+3     2:21265518                     A                    T      0.8601      -0.0658      0.05318     0.0340 -0.68139925
+4     7:44582331                     A                    G      0.7227      -0.0467      0.13150     0.0310  1.14016455
+5     1:55518467                     A                    G      0.6069       0.0196      0.46950     0.0270  0.52947215
+6     2:21135577                     A                    G      0.3247       0.0277      0.27850     0.0256  0.67567568
+    Waldvar        lab id.exposure exposure   id.outcome outcome mr_keep
+1 0.1786591 rs10062361         UKB    LDL-C Blauwendraat      PD    TRUE
+2 0.3393436 rs11206510         UKB    LDL-C Blauwendraat      PD    TRUE
+3 0.1239679 rs12714264         UKB    LDL-C Blauwendraat      PD    TRUE
+4 0.5728286  rs2073547         UKB    LDL-C Blauwendraat      PD    TRUE
+5 0.5319877  rs2495477         UKB    LDL-C Blauwendraat      PD    TRUE
+6 0.3899393  rs4341893         UKB    LDL-C Blauwendraat      PD    TRUE
 
 
 #To see MR methods that can be used:
