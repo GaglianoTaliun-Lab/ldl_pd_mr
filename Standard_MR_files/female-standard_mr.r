@@ -151,9 +151,28 @@ exposure_dat <- clump_data(exposure_dat)
 outcome_dat <- extract_outcome_data(exposure_dat$SNP, c('ieu-id2'), proxies = 1, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3)
 dat <- harmonise_data(exposure_dat, outcome_dat, action = 2)
 mr_results <- mr(dat)
+      
 
 #Sources:
 #TwoSampleMR: https://rdrr.io/github/MRCIEU/TwoSampleMR/api/
 #User-friendly guide to TwoSampleMR: https://mrcieu.github.io/TwoSampleMR/articles/perform_mr.html 
 #MR-Base GWAS: https://gwas.mrcieu.ac.uk/
 #MR-Presso: https://rdrr.io/github/rondolab/MR-PRESSO/man/
+        
+#I2GX
+library('MendelianRandomization')
+MRInputObject <- mr_input(dat$beta.exposure, dat$se.exposure, dat$beta.outcome, dat$se.outcome)
+mr_egger(MRInputObject)
+#MR-Egger method
+#(variants uncorrelated, random-effect model)
+
+#Number of Variants =  28 
+
+#------------------------------------------------------------------
+#      Method Estimate Std Error  95% CI       p-value
+#    MR-Egger    0.060     0.149 -0.233, 0.352   0.690
+# (intercept)    0.001     0.009 -0.017, 0.019   0.935
+#------------------------------------------------------------------
+#Residual Standard Error :  1.116 
+#Heterogeneity test statistic = 32.3937 on 26 degrees of freedom, (p-value = 0.1804)
+#I^2_GX statistic: 99.0%
