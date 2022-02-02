@@ -83,7 +83,9 @@ res_loo
 
 #Plots
 #Scatter plot (lines with methods used in res)
+pdf("f-standard-scatter.pdf")
 scatter<-mr_scatter_plot(res, dat)
+dev.off()
 
 #Forest
 pdf("f-standard-forest.pdf")
