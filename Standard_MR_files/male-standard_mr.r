@@ -84,7 +84,7 @@ res_loo
 #Plots
 #Scatter plot (lines with methods used in res)
 pdf("m-standard-scatter.pdf")
-scatter<-mr_scatter_plot(res, dat)
+mr_scatter_plot(res, dat)
 dev.off()
 
 #Forest
@@ -94,12 +94,12 @@ dev.off()
 
 #Funnel plot
 pdf("m-standard-funnel.pdf")
-funnel<-mr_funnel_plot(res_single)
+mr_funnel_plot(res_single)
 dev.off()
 
 #Leave-one-out
 pdf("m-standard-loo.pdf")
-leaveoneout<-mr_leaveoneout_plot(res_loo)
+mr_leaveoneout_plot(res_loo)
 dev.off()
 
 
