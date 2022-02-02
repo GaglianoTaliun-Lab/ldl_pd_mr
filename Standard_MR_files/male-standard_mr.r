@@ -120,7 +120,7 @@ library(MRPRESSO)
 mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = dat)
 #Note: the Outlier Test was not done because the Global Test p-value was >0.05 (not significant).
 #$`MR-PRESSO results`$`Global Test`$Pvalue
-#[1] 0.225
+#[1] 0.369
         
 #directionality test
 outcome_dat<-read_outcome_data("Moriginalbeta.csv", beta_col="beta.outcome", se_col="se.outcome", effect_allele_col="effect_allele.outcome", other_allele_col="other_allele.outcome", eaf_col="eaf.outcome", pval_col="pval.outcome", sep=",")
@@ -157,3 +157,21 @@ mr_results <- mr(dat)
 #User-friendly guide to TwoSampleMR: https://mrcieu.github.io/TwoSampleMR/articles/perform_mr.html 
 #MR-Base GWAS: https://gwas.mrcieu.ac.uk/
 #MR-Presso: https://rdrr.io/github/rondolab/MR-PRESSO/man/
+        
+#I2GX
+library('MendelianRandomization')
+MRInputObject <- mr_input(dat$beta.exposure, dat$se.exposure, dat$beta.outcome, dat$se.outcome)
+mr_egger(MRInputObject)
+#MR-Egger method
+#(variants uncorrelated, random-effect model)
+
+#Number of Variants =  20 
+
+#------------------------------------------------------------------
+#      Method Estimate Std Error  95% CI       p-value
+#    MR-Egger   -0.159     0.164 -0.480, 0.163   0.334
+# (intercept)    0.006     0.010 -0.013, 0.026   0.525
+#------------------------------------------------------------------
+#Residual Standard Error :  1.101 
+#Heterogeneity test statistic = 21.8264 on 18 degrees of freedom, (p-value = 0.2398)
+#I^2_GX statistic: 98.6%
