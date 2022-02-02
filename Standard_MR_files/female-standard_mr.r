@@ -107,7 +107,10 @@ dev.off()
 
 #Testing for horizontal pleiotropy using MR-Egger
 mr_pleiotropy_test(dat)
-
+#id.exposure   id.outcome outcome exposure egger_intercept          se
+#1         UKB Blauwendraat      PD    LDL-C    0.0007451164 0.009181155
+#       pval
+#1 0.9359385
 
 
 #Testing for horizontal pleiotropy using MR-PResso
