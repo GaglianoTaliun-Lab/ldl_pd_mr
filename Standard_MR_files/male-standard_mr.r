@@ -121,36 +121,6 @@ mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="s
 #Note: the Outlier Test was not done because the Global Test p-value was >0.05 (not significant).
 #$`MR-PRESSO results`$`Global Test`$Pvalue
 #[1] 0.369
-        
-#directionality test
-outcome_dat<-read_outcome_data("Moriginalbeta.csv", beta_col="beta.outcome", se_col="se.outcome", effect_allele_col="effect_allele.outcome", other_allele_col="other_allele.outcome", eaf_col="eaf.outcome", pval_col="pval.outcome", sep=",")
-exposure_dat<-read_exposure_data("Moriginalbeta.csv", beta_col="beta.exposure", se_col="se.exposure", effect_allele_col="effect_allele.exposure", other_allele_col="other_allele.exposure", eaf_col="eaf.outcome", pval_col="pval.exposure", sep=",")
-harmon<-harmonise_data(exposure_dat, outcome_dat, action = 2)
-harmon$samplesize.exposure<-184689
-harmon$ncase.outcome<-7384
-harmon$ncontrol.outcome<-20330
-harmon$prevalence.outcome<-0.01 #1% prevalence
-
-harmon$r.outcome<-get_r_from_lor(
-  harmon$beta.outcome,
-  harmon$eaf.outcome,
-  harmon$ncase.outcome,
-  harmon$ncontrol.outcome,
-  harmon$prevalence.outcome,
-  model = "logit",
-  correction = FALSE
-)
-directionality_test(harmon)
-
-
-#Using GWAS datasets from MR-Base (https://gwas.mrcieu.ac.uk/)
-library(TwoSampleMR)
-ao <- available_outcomes()
-exposure_dat <- extract_instruments(c('ieu-id1'))
-exposure_dat <- clump_data(exposure_dat)
-outcome_dat <- extract_outcome_data(exposure_dat$SNP, c('ieu-id2'), proxies = 1, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3)
-dat <- harmonise_data(exposure_dat, outcome_dat, action = 2)
-mr_results <- mr(dat)
 
 #Sources:
 #TwoSampleMR: https://rdrr.io/github/MRCIEU/TwoSampleMR/api/
