@@ -38,7 +38,7 @@ res<-mr(dat, method_list=c("mr_uwr", "mr_ivw_radial")
 res
 
 #Note: TwoSampleMR uses bootstrapping to calculate SEs for the weighted median, simple mode and weighted mode methods. It is therefore normal for the standard errors and p-values of those methods
-to differ between each run of the command.
+#to differ between each run of the command.
 
 
 #By individual analysis
@@ -84,7 +84,7 @@ res_loo
 #Plots
 #Scatter plot (lines with methods used in res)
 pdf("f-standard-scatter.pdf")
-scatter<-mr_scatter_plot(res, dat)
+mr_scatter_plot(res, dat)
 dev.off()
 
 #Forest
@@ -94,12 +94,12 @@ dev.off()
 
 #Funnel plot
 pdf("f-standard-funnel.pdf")
-funnel<-mr_funnel_plot(res_single)
+mr_funnel_plot(res_single)
 dev.off()
 
 #Leave-one-out
 pdf("f-standard-loo.pdf")
-leaveoneout<-mr_leaveoneout_plot(res_loo)
+mr_leaveoneout_plot(res_loo)
 dev.off()
 
 
