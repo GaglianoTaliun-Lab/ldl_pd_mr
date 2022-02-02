@@ -119,7 +119,9 @@ mr_pleiotropy_test(dat)
 library(MRPRESSO)
 mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = dat)
 #Note: the Outlier Test was not done because the Global Test p-value was >0.05 (not significant).
-
+#$`MR-PRESSO results`$`Global Test`$Pvalue
+#[1] 0.225
+        
 #directionality test
 outcome_dat<-read_outcome_data("Foriginalbeta.csv", beta_col="beta.outcome", se_col="se.outcome", effect_allele_col="effect_allele.outcome", other_allele_col="other_allele.outcome", eaf_col="eaf.outcome", pval_col="pval.outcome", sep=",")
 exposure_dat<-read_exposure_data("Foriginalbeta.csv", beta_col="beta.exposure", se_col="se.exposure", effect_allele_col="effect_allele.exposure", other_allele_col="other_allele.exposure", eaf_col="eaf.outcome", pval_col="pval.exposure", sep=",")
