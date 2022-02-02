@@ -68,8 +68,8 @@ res_single
 #res_single<-mr_singlesnp(dat, all_method = c("xmethod"))
 
 
-res_single<-mr_singlesnp(dat, all_method = c("mr_weighted_mode"))
-res_single
+#res_single<-mr_singlesnp(dat, all_method = c("mr_weighted_mode"))
+#res_single
 
 
 #Leave-one-out Analysis 
