@@ -1,4 +1,4 @@
-,SNP,other_allele.exposure,effet_allele.exposure,beta.exposure,se.exposure,pval.exposure,effect_allele.outcome,other_allele.outcome,beta.outcome,se.outcome,pval.outcome,exposure,id.exposure,outcome,id.outcome,mr_keep
+,SNP,other_allele.exposure,effect_allele.exposure,beta.exposure,se.exposure,pval.exposure,effect_allele.outcome,other_allele.outcome,beta.outcome,se.outcome,pval.outcome,exposure,id.exposure,outcome,id.outcome,mr_keep
 1,1:109818306,G,T,0.128,0.00418,8.17E-205,T,G,0.0016,0.0239,0.9453,LDL-C,UKB,PD,Blauwendraat,TRUE
 2,1:63025942,G,T,0.0307,0.00366,4.59E-17,T,G,0.0267,0.0212,0.2077,LDL-C,UKB,PD,Blauwendraat,TRUE
 3,11:116648917,G,C,-0.0314,0.00517,1.21E-09,C,G,-0.0238,0.0287,0.4061,LDL-C,UKB,PD,Blauwendraat,TRUE
