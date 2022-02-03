@@ -210,3 +210,8 @@ directionality_test(harmon)
 #1      7q9a19     aiSuQK exposure outcome     0.005416424   0.0002861279
 #  correct_causal_direction steiger_pval
 #1                     TRUE           NA
+
+#I2GX
+library('MendelianRandomization')
+MRInputObject <- mr_input(dat$beta.exposure, dat$se.exposure, dat$beta.outcome, dat$se.outcome)
+mr_egger(MRInputObject)
