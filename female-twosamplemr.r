@@ -1,3 +1,7 @@
+#R version 4.0.5
+#TwoSampleMR version 0.5.6
+#Mendelian Randomization version 0.5.1
+
 library(TwoSampleMR)
 
 #dat.csv will require minimally SNP (rsID), beta.exposure, beta.outcome, se.exposure, se.outcome, effect_allele.exposure, effect_allele.outcome, exposure, id.exposure (source name), outcome, id.outcome, and mr_keep (=TRUE)
