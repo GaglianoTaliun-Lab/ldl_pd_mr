@@ -1,6 +1,6 @@
-#TwoSampleMR package installation on r/4.0.5
-#install.packages("remotes")
-#remotes::install_github("MRCIEU/TwoSampleMR")
+#R version 4.0.5
+#TwoSampleMR version 0.5.6
+#Mendelian Randomization version 0.5.1
 
 library(TwoSampleMR)
 
