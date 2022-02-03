@@ -1,4 +1,6 @@
-library(TwoSampleMR)
+#R version 4.0.5
+#TwoSampleMR version 0.5.6
+#Mendelian Randomization version 0.5.1library(TwoSampleMR)
 
 dat<-read.csv("LDLPD-male.csv")
 
