@@ -369,7 +369,11 @@ directionality_test(harmon)
 #  correct_causal_direction steiger_pval
 #1                     TRUE           NA
 
-
+#I2GX
+library('MendelianRandomization')
+MRInputObject <- mr_input(dat$beta.exposure, dat$se.exposure, dat$beta.outcome, dat$se.outcome)
+mr_egger(MRInputObject)        
+        
 #Using GWAS datasets from MR-Base (https://gwas.mrcieu.ac.uk/)
 library(TwoSampleMR)
 ao <- available_outcomes()
