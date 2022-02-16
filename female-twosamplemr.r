@@ -94,7 +94,7 @@ res
 #4         UKB Blauwendraat      PD    LDL-C               Simple mode    6  0.36802608 0.5233763 0.51332918
 #5         UKB Blauwendraat      PD    LDL-C             Weighted mode    6  0.17865945 0.4519793 0.70893539
 #Note: TwoSampleMR uses bootstrapping to calculate SEs for the weighted median, simple mode and weighted mode methods. It is therefore normal for the standard errors and p-values of those methods
-#to differ between each run of the command.
+#to slightly differ between each run of the command.
 
 
 #By individual analysis
