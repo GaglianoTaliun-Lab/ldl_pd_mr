@@ -90,6 +90,65 @@ mr_weighted_mode(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.ou
 #$nsnp
 #[1] 6
 
+mr_egger_regression(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
+#$b
+#[1] -0.2973977
+
+#$se
+#[1] 0.6651009
+
+#$pval
+#[1] 0.6779132
+
+#$nsnp
+#[1] 6
+
+#$b_i
+#[1] 0.01283231
+
+#$se_i
+#[1] 0.03423931
+
+#$pval_i
+#[1] 0.7268459
+
+#$Q
+#[1] 8.093721
+
+#$Q_df
+#[1] 4
+
+#$Q_pval
+#[1] 0.08820478
+
+#$mod
+
+#Call:
+#lm(formula = b_out ~ b_exp, weights = 1/se_out^2)
+
+#Weighted Residuals:
+#      1       2       3       4       5       6 
+# 1.7947 -1.7444 -0.4145 -0.5457  1.1068 -0.3676 
+
+#Coefficients:
+#            Estimate Std. Error t value Pr(>|t|)
+#(Intercept)  0.01283    0.03424   0.375    0.727
+#b_exp       -0.29740    0.66510  -0.447    0.678
+
+#Residual standard error: 1.422 on 4 degrees of freedom
+#Multiple R-squared:  0.04761,	Adjusted R-squared:  -0.1905 
+#F-statistic: 0.1999 on 1 and 4 DF,  p-value: 0.6779
+
+
+#$dat
+#    b_out  b_exp  se_exp se_out flipped
+#1  0.0428 0.0495 0.00428 0.0249   FALSE
+#2 -0.0455 0.0454 0.00446 0.0257   FALSE
+#3 -0.0304 0.1030 0.00524 0.0304   FALSE
+#4 -0.0107 0.0294 0.00452 0.0271    TRUE
+#5  0.0270 0.0428 0.00366 0.0243   FALSE
+#6 -0.0038 0.0275 0.00365 0.0230   FALSE
+
 #Analysis by single SNPs 
 #Default methods: single_method = "mr_wald_ratio", all_method = c("mr_ivw", "mr_egger_regression")
 res_single<-mr_singlesnp(dat)
