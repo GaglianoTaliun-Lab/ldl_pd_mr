@@ -2,7 +2,7 @@
 #TwoSampleMR version 0.5.6
 #Mendelian Randomization version 0.5.1library(TwoSampleMR)
 
-dat<-read.csv("LDLPD-male.csv")
+dat<-read.csv("pathway/LDLPD-male.csv")
 
 #Make sure effect alleles match. Otherwise change sign of beta for exposure
 dat$effect_allele.outcome<-as.factor(dat$effect_allele.outcome)
