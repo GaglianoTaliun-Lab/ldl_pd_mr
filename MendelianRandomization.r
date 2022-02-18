@@ -6,8 +6,6 @@ par(mar=c(4,2,0,2)+.1)
 #dat.csv will require minimally beta.exposure, beta.outcome, se.exposure, se.outcome
 #Read .csv file
 dat<-read.csv("pathway/dat.csv")
-#Example file:
-LDLPD<-read.csv("pathway/LDLPD.csv")
 
 #If file has effect alleles (effect_allele.outcome and effect_alle.exposure), make sure effect alleles match. Otherwise change sign of beta (from Prof. Sarah's MR code):
 dat$effect_allele.outcome<-as.factor(dat$effect_allele.outcome)
@@ -17,21 +15,16 @@ dat$effect_allele.outcome <- factor(dat$effect_allele.outcome, levels=lev2)
 dat$effect_allele.exposure <- factor(dat$effect_allele.exposure, levels=lev2)
 dat$effect_allele.exposure<-gsub(" ", "",dat$effect_allele.exposure, fixed = TRUE)
 dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome]<-dat$beta.exposure[dat$effect_allele.exposure!=dat$effect_allele.outcome] * -1
-#Note: example file already corrected 
 
 #Individual analysis. Various variables including models can be modified. Consult guidebook/package for more details
 
 #First set MRInputObject:
 MRInputObject <- mr_input(dat$beta.exposure, dat$se.exposure, dat$beta.outcome, dat$se.outcome)
-#Example file:
-MRInputObject <- mr_input(LDLPD$beta.exposure, LDLPD$se.exposure, LDLPD$beta.outcome, LDLPD$se.outcome)
 
 #IVW (default model: fixed if 3 snps or less, random if otherwise)
 mr_ivw(MRInputObject)
-#Changing model, ex:
-mr_ivw(MRInputObject, model="fixed")
-#Example file (random-effects model):
-mr_ivw(MRInputObject)
+
+###results for LDLPD-female.csv:
 #Inverse-variance weighted method
 #(variants uncorrelated, random-effect model)
 
@@ -44,8 +37,10 @@ mr_ivw(MRInputObject)
 #Residual standard error =  1.253 
 #Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
 
-#Example file (fixed-effects model):
+#Changing model; e.g. fixed-effects model:
 mr_ivw(MRInputObject, model="fixed")
+
+###results for LDLPD-female.csv:
 #Inverse-variance weighted method
 #(variants uncorrelated, fixed-effect model)
 
@@ -60,10 +55,10 @@ mr_ivw(MRInputObject, model="fixed")
 #Heterogeneity test statistic (Cochran's Q) = 7.8513 on 5 degrees of freedom, (p-value = 0.1646). I^2 = 36.3%. 
 
 
-#Egger (model always random)
+#Egger (model always uses random effects)
 mr_egger(MRInputObject)
-#Example file:
-mr_egger(MRInputObject)
+
+###results for LDLPD-female.csv:
 #MR-Egger method
 #(variants uncorrelated, random-effect model)
 
@@ -140,10 +135,6 @@ pdf("pathway/name.pdf")
 mr_funnel(MRInputObject) #insert plot command here, this is an example
 dev.off()
 
-
 #Sources:
 # https://rdrr.io/cran/MendelianRandomization/api/
 # Guidebook: https://cran.r-project.org/web/packages/MendelianRandomization/MendelianRandomization.pdf
-
-
-
