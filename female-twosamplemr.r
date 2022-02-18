@@ -10,9 +10,9 @@ library(TwoSampleMR)
 dat<-read.csv("pathway/dat.csv")
 #To verify file/print:
 dat
-#Example file: 
-#LDLPD<-read.csv("pathway/LDLPD-female.csv")
-#LDLPD
+#for example:
+#dat<-read.csv("pathway/LDLPD-female.csv")
+#dat
 #  X        SNP chrpos.exposure effect_allele.exposure other_allele.exposure beta.exposure se.exposure pval.exposure
 #1 1 rs10062361      5:74565153                      T                     C      0.066717   0.0039256      9.97e-65
 #2 2 rs11206510      1:55496039                      C                     T     -0.050126   0.0041043      2.73e-34
@@ -85,8 +85,6 @@ res<-mr(dat, method_list=c("xmethod", "ymethod"))
 res<-mr(dat, method_list=c("mr_uwr", "mr_ivw_radial")
 res
 #Example file (default mode):
-res<-mr(LDLPD)
-res
 #  id.exposure   id.outcome outcome exposure                    method nsnp           b        se       pval
 #1         UKB Blauwendraat      PD    LDL-C                  MR Egger    6 -1.50012998 0.6190943 0.07251925
 #2         UKB Blauwendraat      PD    LDL-C           Weighted median    6  0.10252434 0.2936191 0.72695818
@@ -99,13 +97,12 @@ res
 
 #By individual analysis
 #General format: take xmethod from mr_method_list
-res<-xmethod(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
+#res<-xmethod(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 
 #Examples
 #Inverse variance weighted
 mr_ivw(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
-#Example file:
-mr_ivw(LDLPD$beta.exposure, LDLPD$beta.outcome, LDLPD$se.exposure, LDLPD$se.outcome)
+
 #$b
 #[1] 0.01152343
 #
@@ -129,8 +126,7 @@ mr_ivw(LDLPD$beta.exposure, LDLPD$beta.outcome, LDLPD$se.exposure, LDLPD$se.outc
 
 #MR-Egger
 mr_egger_regression(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
-#Example file:
-mr_egger_regression(LDLPD$beta.exposure, LDLPD$beta.outcome, LDLPD$se.exposure, LDLPD$se.outcome)
+
 #$b
 #[1] -1.50013
 #
@@ -233,10 +229,8 @@ mr_weighted_mode(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.ou
 res_single<-mr_singlesnp(dat)
 res_single
 #Only all_method can be precised:
-res_single<-mr_singlesnp(dat, all_method = c("xmethod"))
+#res_single<-mr_singlesnp(dat, all_method = c("xmethod"))
 #Example file (with default methods):
-res_single<-mr_singlesnp(LDLPD)
-res_single
 #exposure outcome id.exposure   id.outcome samplesize                             SNP           b        se          p
 #1    LDL-C      PD         UKB Blauwendraat         NA                      rs10062361  0.09143097 0.4226809 0.82874451
 #2    LDL-C      PD         UKB Blauwendraat         NA                      rs11206510  0.17954754 0.5825320 0.75791556
@@ -247,8 +241,8 @@ res_single
 #7    LDL-C      PD         UKB Blauwendraat         NA All - Inverse variance weighted  0.01152343 0.2624287 0.96497558
 #8    LDL-C      PD         UKB Blauwendraat         NA                  All - MR Egger -1.50012998 0.6190943 0.07251925
 #Example file with weighted mode as all_method:
-res_single<-mr_singlesnp(LDLPD, all_method = c("mr_weighted_mode"))
-res_single
+#res_single<-mr_singlesnp(dat, all_method = c("mr_weighted_mode"))
+#res_single
 #  exposure outcome id.exposure   id.outcome samplesize                 SNP           b        se          p
 #1    LDL-C      PD         UKB Blauwendraat         NA          rs10062361  0.09143097 0.4226809 0.82874451
 #2    LDL-C      PD         UKB Blauwendraat         NA          rs11206510  0.17954754 0.5825320 0.75791556
@@ -264,10 +258,8 @@ res_single
 res_loo<-mr_leaveoneout(dat)
 res_loo
 #To specify method:
-res_loo<-mr_leaveoneout(dat, method=xmethod)
+#res_loo<-mr_leaveoneout(dat, method=xmethod)
 #Example file (default method):
-res_loo<-mr_leaveoneout(LDLPD)
-res_loo
 #  exposure outcome id.exposure   id.outcome samplesize        SNP           b        se         p
 #1    LDL-C      PD         UKB Blauwendraat         NA rs10062361 -0.01447501 0.3367586 0.9657148
 #2    LDL-C      PD         UKB Blauwendraat         NA rs11206510 -0.01341608 0.3125068 0.9657569
@@ -277,7 +269,7 @@ res_loo
 #6    LDL-C      PD         UKB Blauwendraat         NA  rs4341893 -0.07264361 0.2850432 0.7988380
 #7    LDL-C      PD         UKB Blauwendraat         NA        All  0.01152343 0.2624287 0.9649756
 #Example file (using MR-Egger):
-res_loo<-mr_leaveoneout(LDLPD, method=mr_egger_regression)
+#res_loo<-mr_leaveoneout(dat, method=mr_egger_regression)
 #res_loo
 #  exposure outcome id.exposure   id.outcome samplesize        SNP          b        se          p
 #1    LDL-C      PD         UKB Blauwendraat         NA rs10062361 -1.6461225 0.6571428 0.08732345
@@ -312,37 +304,34 @@ dev.off()
 #For heterogeneity (Q) by Inverse variance weighted method and MR-Egger method
 mr_heterogeneity(dat)
 #Example file:
-mr_heterogeneity(LDLPD)
-  id.exposure   id.outcome outcome exposure                    method        Q Q_df    Q_pval
-1         UKB Blauwendraat      PD    LDL-C                  MR Egger 1.118915    4 0.8912596
-2         UKB Blauwendraat      PD    LDL-C Inverse variance weighted 7.851282    5 0.1646245
+#  id.exposure   id.outcome outcome exposure                    method        Q Q_df    Q_pval
+#1         UKB Blauwendraat      PD    LDL-C                  MR Egger 1.118915    4 0.8912596
+#2         UKB Blauwendraat      PD    LDL-C Inverse variance weighted 7.851282    5 0.1646245
 
 
 #Testing for horizontal pleiotropy using MR-Egger
 mr_pleiotropy_test(dat)
 #Example file:
-mr_pleiotropy_test(LDLPD)
- id.exposure   id.outcome outcome exposure egger_intercept         se       pval
-1         UKB Blauwendraat      PD    LDL-C      0.09018586 0.03475798 0.06038538
+# id.exposure   id.outcome outcome exposure egger_intercept         se       pval
+#1         UKB Blauwendraat      PD    LDL-C      0.09018586 0.03475798 0.06038538
 
 
 #Testing for horizontal pleiotropy using MR-PResso
 library(MRPRESSO)
 mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = dat)
 #Example file:
-mr_presso(BetaOutcome="beta.outcome", BetaExposure="beta.exposure", SdOutcome="se.outcome", SdExposure="se.exposure", OUTLIERtest=TRUE, DISTORTIONtest=TRUE, data = LDLPD)
-$`Main MR results`
-       Exposure       MR Analysis Causal Estimate        Sd     T-stat   P-value
-1 beta.exposure               Raw      0.01152343 0.2624287 0.04391071 0.9666753
-2 beta.exposure Outlier-corrected              NA        NA         NA        NA
+#$`Main MR results`
+#       Exposure       MR Analysis Causal Estimate        Sd     T-stat   P-value
+#1 beta.exposure               Raw      0.01152343 0.2624287 0.04391071 0.9666753
+#2 beta.exposure Outlier-corrected              NA        NA         NA        NA
 
-$`MR-PRESSO results`
-$`MR-PRESSO results`$`Global Test`
-$`MR-PRESSO results`$`Global Test`$RSSobs
-[1] 14.09026
+#$`MR-PRESSO results`
+#$`MR-PRESSO results`$`Global Test`
+#$`MR-PRESSO results`$`Global Test`$RSSobs
+#[1] 14.09026
 
-$`MR-PRESSO results`$`Global Test`$Pvalue
-[1] 0.175
+#$`MR-PRESSO results`$`Global Test`$Pvalue
+#[1] 0.175
 #Note: the Outlier Test was not done because the Global Test p-value was >0.05 (not significant).
 
 #directionality test
@@ -388,4 +377,3 @@ mr_results <- mr(dat)
 #User-friendly guide to TwoSampleMR: https://mrcieu.github.io/TwoSampleMR/articles/perform_mr.html 
 #MR-Base GWAS: https://gwas.mrcieu.ac.uk/
 #MR-Presso: https://rdrr.io/github/rondolab/MR-PRESSO/man/
-
