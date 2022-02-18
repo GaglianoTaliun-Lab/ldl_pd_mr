@@ -34,16 +34,16 @@ res
 #To precise method, take xmethod, ymethod, etc. from method list:
 res<-mr(dat, method_list=c("xmethod", "ymethod"))
 #Ex: 
-res<-mr(dat, method_list=c("mr_uwr", "mr_ivw_radial")
-res
+#res<-mr(dat, method_list=c("mr_uwr", "mr_ivw_radial")
+#res
 
 #Note: TwoSampleMR uses bootstrapping to calculate SEs for the weighted median, simple mode and weighted mode methods. It is therefore normal for the standard errors and p-values of those methods
-to differ between each run of the command.
+#to differ between each run of the command.
 
 
 #By individual analysis
 #General format: take xmethod from mr_method_list
-res<-xmethod(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
+#res<-xmethod(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 
 #Examples
 #Inverse variance weighted
