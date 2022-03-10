@@ -1,6 +1,5 @@
 #!/bin/bash
 #SBATCH --time=50:00:00
-#SBATCH --account=def-gsarah
 #SBATCH --mem=500G
 #SBATCH --cpus-per-task=1
 #SBATCH --output=slurm.log
