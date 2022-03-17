@@ -1,3 +1,4 @@
+##PD sumstats downloaded from IPDGC downloads page under 'Male and Female specific summary stats Blauwendraat et al 2021'
 
 #1. Unzip file
 zless MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt.gz > MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt
