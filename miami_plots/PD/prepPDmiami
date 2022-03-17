@@ -24,4 +24,3 @@ sed -i 's/MarkerName/variant/' Male_PD_Miami_withv.txt
 #clean up
 rm female-col1 30780_irnt.gwas.imputed_v3.female.varorder.tsv  
 
-#repeat for male-only sumstats file
