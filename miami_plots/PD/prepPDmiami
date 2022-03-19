@@ -3,14 +3,14 @@
 #1. Unzip file
 zless MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt.gz > MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt
 
-#copy first column into a new file and split into 4 new columns 
+#2. Copy first three column into a new file and split into 4 columns 
 cut -f 1,2,3 MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt > male-col1
 sed -i 's/MarkerName/CHR:BP/' male-col1
 perl -p -i -e 's/:/\t/g' male-col1
 sed -i 's/Allele1/ALT/' male-col1
 sed -i 's/Allele2/REF/' male-col1
 
-
+#3. Copy 
 cut MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt -f 1,2,3,17,18 --complement > MALE_PD_cut.txt
 
 paste male-col1 MALE_PD_cut.txt > Mhope.txt
