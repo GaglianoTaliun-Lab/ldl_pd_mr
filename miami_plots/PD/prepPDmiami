@@ -3,17 +3,17 @@
 #1. Unzip file
 zless MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt.gz > MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt
 
-#2. Copy first two columns into a new file and split into three columns to create male-col1
-cut -f 1,2 MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt > male-col1
-sed -i 's/MarkerName/CHR:BP/' male-col1
-perl -p -i -e 's/:/\t/g' male-col1
-sed -i 's/Allele1/ALT/' male-col1
+#2. Copy first two columns into a new file and split into three columns to create Male-col1
+cut -f 1,2 MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt > Male-col1
+sed -i 's/MarkerName/CHR:BP/' Male-col1
+perl -p -i -e 's/:/\t/g' Male-col1
+sed -i 's/Allele1/ALT/' Male-col1
 
 #3. Copy "Effect", "StdErr", and "P-value" columns from original file
-cut MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt -f 8,9,10 > MALE_PD_cut.txt
+cut MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt -f 8,9,10 > Male_PD_cut.txt
 
 #4. Paste "Effect", "StdErr", and "P-value" columns into male-col1 to form Male_PD_Miami.txt
-paste male-col1 MALE_PD_cut.txt > Male_PD_Miami.txt
+paste Male-col1 Male_PD_cut.txt > Male_PD_Miami.txt
 
 #5. Rename "P-value" column to "P.value" -- important: otherwise EasyStrata will attempt to rename P-value and will not be able to carry out commands
 sed -i 's/P-value/P.value/' Male_PD_Miami.txt
@@ -26,5 +26,6 @@ paste Mvariant.txt Male_PD_Miami.txt > Male_PD_Miami_withv.txt
 sed -i 's/MarkerName/variant/' Male_PD_Miami_withv.txt
   
 #8. Clean up
+rm MALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt male-col1 Male_PD_cut.txt Male_PD_Miami.txt Mvariant.txt Male_PD_Miami_withv.txt
 
-
+#9. Repeat for FEMALE_PD_filtered_sumstats_NO_UKB_AT_ALL_no_multi_allelics_RSID.txt.gz
