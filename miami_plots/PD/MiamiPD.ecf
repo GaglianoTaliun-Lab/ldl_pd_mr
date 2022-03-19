@@ -4,11 +4,11 @@
 DEFINE		--acolIn variant;CHR;BP;ALT;Effect;StdErr;P.value
 		--acolInClasses character;numeric;numeric;character;numeric;numeric;numeric
 
-EASYIN	--fileIn /pathway/to/Female_PD_Miami.txt
+EASYIN	--fileIn /pathway/to/Female_PD_Miami_withv.txt
 		--fileInShortName PD_female 
 		--fileInTag WOMEN
 
-EASYIN	--fileIn /pathway/to/Male_PD_Miami.txt
+EASYIN	--fileIn /pathway/to/Male_PD_Miami_withv.txt
 		--fileInShortName PD_male
 		--fileInTag MEN
 
